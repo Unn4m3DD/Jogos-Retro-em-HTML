@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Minesweeperzao TOP</title>
+    <style>
+      div {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      td {
+        height: 30px;
+        width: 30px;
+        margin: 0;
+        border-width: 1px;
+        border-style: solid;
+        border-color: black;
+        text-align: center;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .flagged {
+        background-color: rgb(90, 90, 90);
+        text-decoration-color: red;
+      }
+      .hidden {
+        background-color: black;
+      }
+      .empty {
+        background-color: white;
+      }
+      .bomb {
+        background-color: rgb(167, 32, 32);
+      }
+    </style>
+  </head>
+  <body>
+    <table id="table"></table>
+    <div>
+      Time:
+      <div id="time"></div>
+    </div>
+    <div>
+      Bombs:
+      <div id="bombs"></div>
+    </div>
+    <script>
+      render = () => {
+        let table = document.getElementById("table");
+        let tbody = "<tbody>";
+        document.getElementById("bombs").innerText = bombCount;
+        for (let y = 0; y < height; y++) {
+          let tr = "<tr>";
+          for (let x = 0; x < width; x++) {
+            let onclick = "clicked(" + x + "," + y + ', event, "l")';
+            let onContextMenu =
+              "javascript:clicked(" + x + "," + y + ', event, "r")';
+            if (flags_board[x][y] == 1)
+              tr +=
+                "<td class='flagged' onclick='" +
+                onclick +
+                "' oncontextmenu='" +
+                onContextMenu +
+                "'> F </td>";
+            else if (board[x][y] == 0)
+              tr +=
+                "<td class='hidden' onclick='" +
+                onclick +
+                "' oncontextmenu='" +
+                onContextMenu +
+                "'></td>";
+            else if (bombBoard[x][y] == 0) tr += "<td class='empty'></td>";
+            else if (board[x][y] == 1 && bombBoard[x][y] != -1)
+              tr +=
+                "<td class='empty' onclick='" +
+                onclick +
+                "' oncontextmenu='" +
+                onContextMenu +
+                "'>" +
+                bombBoard[x][y] +
+                "</td>";
+            else if (board[x][y] == 1)
+              tr +=
+                "<td class='bomb' onclick='" +
+                onclick +
+                "' oncontextmenu='" +
+                onContextMenu +
+                "'></td>";
+          }
+          tr += "</tr>";
+          tbody += tr;
+        }
+        tbody += "</tbody>";
+        table.innerHTML = tbody;
+      };
+    </script>
+    <script>
+      const width = Math.round(window.innerWidth / 35);
+      const height = Math.round(window.innerHeight / 40);
+      let numberOfBombs = Math.round((width * height) / 8);
+      let board = [];
+      let bombBoard = [];
+      let flags_board = [];
+      var bombCount = numberOfBombs;
+      let setup = () => {
+        for (let x = 0; x < width; x++) {
+          board.push([]);
+          bombBoard.push([]);
+          flags_board.push([]);
+          for (let y = 0; y < height; y++) {
+            board[x].push(0);
+            bombBoard[x].push(0);
+            flags_board[x].push(0);
+          }
+        }
+        while (c_nBombs() < numberOfBombs) {
+          placeBomb();
+        }
+        calculateNumbers();
+        render();
+      };
+      setup();
+
+      function clicked(x, y, event, clickType) {
+        event.preventDefault();
+        if (clickType == "l") open(x, y);
+        else flag(x, y);
+        render();
+      }
+      function flag(x, y) {
+        flags_board[x][y] = (flags_board[x][y] + 1) % 2;
+        if (flags_board[x][y] == 1) bombCount--;
+        else bombCount++;
+      }
+      function open(x, y) {
+        if (board[x][y] == 1) return;
+        board[x][y] = 1;
+        if (bombBoard[x][y] != 0) return;
+        for (let i = x - 1; i < x + 2; i++) {
+          for (let j = y - 1; j < y + 2; j++) {
+            try {
+              open(i, j);
+            } catch (e) {}
+          }
+        }
+      }
+
+      function calculateNumbers() {
+        for (let x = 0; x < width; x++) {
+          for (let y = 0; y < height; y++) {
+            if (bombBoard[x][y] != -1) {
+              let number = 0;
+              for (let i = x - 1; i < x + 2; i++) {
+                for (let j = y - 1; j < y + 2; j++) {
+                  try {
+                    if (bombBoard[i][j] == -1) number++;
+                  } catch (e) {}
+                }
+              }
+              bombBoard[x][y] = number;
+            }
+          }
+        }
+      }
+
+      function placeBomb() {
+        bombBoard[getRandomInt(0, width)][getRandomInt(0, height)] = -1;
+      }
+      function c_nBombs() {
+        let result = 0;
+        for (let x = 0; x < width; x++) {
+          for (let y = 0; y < height; y++) {
+            if (bombBoard[x][y] == -1) result++;
+          }
+        }
+        return result;
+      }
+      function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max) - 1;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+    </script>
+  </body>
+</html>

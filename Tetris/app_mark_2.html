@@ -1,0 +1,45 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Tetriszão TOP</title>
+    <style>
+      td {
+        height: 30px;
+        width: 30px;
+      }
+      .filled {
+        background-color: black;
+      }
+      .normal {
+        background-color: white;
+      }
+      .piece {
+        background-color: rgb(6, 102, 228);
+      }
+    </style>
+  </head>
+  <body>
+    <table id="table"></table>
+  </body>
+  <script>
+    render = () => {
+      let table = document.getElementById("table");
+      let tbody = "<tbody>";
+      for (let y = 0; y < height; y++) {
+        let tr = "<tr>";
+        for (let x = 0; x < width; x++) {
+          if (board[x][y] == 1) tr += "<td class='filled'></td>";
+          else if (board[x][y] == 2) tr += "<td class='piece'></td>";
+          else tr += "<td class='normal'></td>";
+        }
+        tr += "</tr>";
+        tbody += tr;
+      }
+      tbody += "</tbody>";
+      table.innerHTML = tbody;
+    };
+  </script>
+  <script src="init.js"></script>
+</html>

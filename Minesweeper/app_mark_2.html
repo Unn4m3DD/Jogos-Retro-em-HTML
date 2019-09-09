@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Minesweeperzao TOP</title>
+    <style>
+      div {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      td {
+        height: 30px;
+        width: 30px;
+        margin: 0;
+        border-width: 1px;
+        border-style: solid;
+        border-color: black;
+        text-align: center;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .flagged {
+        background-color: rgb(90, 90, 90);
+        text-decoration-color: red;
+      }
+      .hidden {
+        background-color: black;
+      }
+      .empty {
+        background-color: white;
+      }
+      .bomb {
+        background-color: rgb(167, 32, 32);
+      }
+    </style>
+  </head>
+  <body>
+    <table id="table"></table>
+    <div>
+      Time:
+      <div id="time"></div>
+    </div>
+    <div>
+      Bombs:
+      <div id="bombs"></div>
+    </div>
+    <script>
+      render = () => {
+        let table = document.getElementById("table");
+        let tbody = "<tbody>";
+        document.getElementById("bombs").innerText = bombCount;
+        for (let y = 0; y < height; y++) {
+          let tr = "<tr>";
+          for (let x = 0; x < width; x++) {
+            let onclick = "clicked(" + x + "," + y + ", event, \"l\")";
+            let onContextMenu =
+              "javascript:clicked(" + x + "," + y + ", event, \"r\")";
+            if (flags_board[x][y] == 1)
+              tr +=
+                "<td class='flagged' onclick='" +
+                onclick +
+                "' oncontextmenu='" +
+                onContextMenu +
+                "'> F </td>";
+            else if (board[x][y] == 0)
+              tr +=
+                "<td class='hidden' onclick='" +
+                onclick +
+                "' oncontextmenu='" +
+                onContextMenu +
+                "'></td>";
+            else if (bombBoard[x][y] == 0) tr += "<td class='empty'></td>";
+            else if (board[x][y] == 1 && bombBoard[x][y] != -1)
+              tr +=
+                "<td class='empty' onclick='" +
+                onclick +
+                "' oncontextmenu='" +
+                onContextMenu +
+                "'>" +
+                bombBoard[x][y] +
+                "</td>";
+            else if (board[x][y] == 1)
+              tr +=
+                "<td class='bomb' onclick='" +
+                onclick +
+                "' oncontextmenu='" +
+                onContextMenu +
+                "'></td>";
+          }
+          tr += "</tr>";
+          tbody += tr;
+        }
+        tbody += "</tbody>";
+        table.innerHTML = tbody;
+      };
+    </script>
+    <script src="init.js"></script>
+  </body>
+</html>

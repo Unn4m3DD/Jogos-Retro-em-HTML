@@ -1,0 +1,22 @@
+{
+  "name": "jogos_retro_html",
+  "version": "1.0.0",
+  "description": "Retro Games in HTML",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Unn4m3DD/Tetris.git"
+  },
+  "author": "André Patacas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Unn4m3DD/Tetris/issues"
+  },
+  "homepage": "https://github.com/Unn4m3DD/Tetris#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

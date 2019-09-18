@@ -2,7 +2,7 @@
   "name": "jogos_retro_html",
   "version": "1.0.0",
   "description": "Retro Games in HTML",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -17,5 +17,8 @@ app.get('/minesweeper', (req, res) => res.sendFile(
 app.get('/jogodosreflexos', (req, res) => res.sendFile(
     path.join(__dirname + '/jogodosreflexos.html')
 ))
+app.get('/snake', (req, res) => res.sendFile(
+    path.join(__dirname + '/snake.html')
+))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

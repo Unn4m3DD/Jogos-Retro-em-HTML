@@ -1,0 +1,74 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Jogo Dos Reflexos</title>
+    <style>
+      div {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      td {
+        height: 30px;
+        width: 30px;
+        margin: 0;
+        border-width: 1px;
+        border-style: solid;
+        border-color: black;
+        text-align: center;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .off {
+        background-color: white;
+      }
+      .on {
+        background-color: rgb(0, 183, 255);
+      }
+    </style>
+  </head>
+  <body>
+    <table id="table">
+      <tbody>
+        <tr>
+          <td id="s0" class="off" onclick="clicked(0)"></td>
+          <td id="s1" class="off" onclick="clicked(1)"></td>
+          <td id="s2" class="off" onclick="clicked(2)"></td>
+          <td id="s3" class="off" onclick="clicked(3)"></td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      var c_on;
+      window.onload = () => {
+        let w = window.innerWidth;
+        let h = window.innerHeight;
+        let table = document.getElementById("table");
+        table.style.width = w * 0.95;
+        table.style.height = h * 0.95;
+        setInterval(randomOn, 1000);
+      };
+      function randomOn() {
+        if (c_on) alert("perdeste, tempo de resposta demasiado alto");
+        let n = getRandomInt(0, 4);
+        document.getElementById("s" + n).classList.remove("off");
+        document.getElementById("s" + n).classList.add("on");
+        c_on = true;
+      }
+      function clicked(n) {
+        document.getElementById("s" + n).classList.remove("on");
+        document.getElementById("s" + n).classList.add("off");
+        c_on = false;
+      }
+      function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        max--;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+    </script>
+  </body>
+</html>

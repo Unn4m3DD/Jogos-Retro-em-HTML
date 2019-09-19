@@ -11,7 +11,11 @@ app.get('/tetris', (req, res) => res.sendFile(
     path.join(__dirname + '/Tetris/tetris_mark_2_aio.html'))
 )
 app.get('/minesweeper', (req, res) => res.sendFile(
-    path.join(__dirname + '/minesweeper_mark_1_aio.html')
+    path.join(__dirname + '/Minesweeper/minesweeper_mark_1_aio.html')
+))
+
+app.get('/jogodosreflexos', (req, res) => res.sendFile(
+    path.join(__dirname + '/jogodosreflexos.html')
 ))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

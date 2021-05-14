@@ -1,4 +1,7 @@
 {
   "setup": "npm i",
-  "run": "node index.js"
+  "run": "node index.js",
+  "image": "",
+  "title": "Retro games in HTML and JS",
+  "subtitle": "Simple demo of retro games in HTML and JS"
 }

@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: update on service provider
-        run: curl http://http://unn4m3dd.xyz//update?repo=Jogos-Retro-em-HTML
+        run: curl https://http://unn4m3dd.xyz//update?repo=Jogos-Retro-em-HTML

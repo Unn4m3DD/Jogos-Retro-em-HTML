@@ -3,5 +3,5 @@
   "run": "node index.js",
   "title": "Retro games in HTML and JS",
   "subtitle": "Simple demo of retro games in HTML and JS",
-  "image": "https://raw.githubusercontent.com/Unn4m3DD/Jogos-Retro-em-HTML/master/demo.gif"
+  "video": "https://raw.githubusercontent.com/Unn4m3DD/Jogos-Retro-em-HTML/master/demo.mp4"
 }
